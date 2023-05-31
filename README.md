@@ -1,4 +1,3 @@
-# 厍俊鹏
 # She Junpeng
 
 👏 Hi there
