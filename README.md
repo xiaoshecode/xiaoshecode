@@ -3,11 +3,11 @@
 
 👏 Hi there
 
-🔭 Studying in Tsinghua,EE.
+🔭 Studying in Tsinghua,IIIS.
 
-🌱 Forward, Quantum information in Tsinghua IIIS 
+🌱 I'm interested in Quantum computing, Quantum information, AI4Sci. 
 
-🏠 I was born in Shanxi' Xian, China
+🏠 I was born in Shanxi' Xian, China.
 
 [![Xiaoshe's GitHub stats](https://github-readme-stats.vercel.app/api?username=xiaoshecode&show_icons=true&theme=dark)](https://github.com/anuraghazra/github-readme-stats)
 
