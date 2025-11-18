@@ -5,7 +5,7 @@
 
 🔭 Studying in Tsinghua, IIIS.
 
-🌱 I'm interested in Quantum computing(especially Trap Ion), Quantum information, AI4Sci. 
+🌱 I'm interested in Quantum computing(Trap Ion), Quantum information, AI4Sci. 
 
 🏠 I was born in Shanxi' Xian, China.
 
