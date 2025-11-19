@@ -15,7 +15,7 @@
 Student @ Tsinghua (IIIS). Working on trapped-ion quantum computing, quantum information & AI4Science. I explore hybrid quantum–classical workflows: error mitigation, variational circuits, multi‑modal scientific data, differentiable quantum models. Long-term goal: scalable quantum + ML toolchains that accelerate scientific discovery.
 
 ## 🛠 Stack
-`Python` · `Rust` · `Qiskit` · `PennyLane` · `Cirq` · `PyTorch` · `Docker` · `Linux`
+`Python` · `Rust` · `Qiskit` · `PennyLane` · `PyTorch` · `Docker` · `Linux`
 
 Minimal + reproducible. Critical paths → Rust FFI; prototyping → Python ML/quantum libs.
 
@@ -62,7 +62,7 @@ Snake contribution animation (optional): `![Snake](https://raw.githubusercontent
 
 ## ☕ Contact
 
-LinkedIn: (add) · Email: (add) · Open to research collab & rapid prototyping.
+Email: shejp20@gmail.com · Open to research collab & rapid prototyping.
 Want to chat about quantum × ML ideas? Ping me.
 
 ## 💡 Credits
