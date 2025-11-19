@@ -36,7 +36,7 @@
 	<img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tensorflow.svg" height="40" alt="TensorFlow" />
 </div>
 
-> Tools & libs I like: `Qiskit`, `Cirq`, `PennyLane`, `PyTorch`, `JAX`, `Rust` for performance-critical kernels.
+> Tools & libs I like: `Qiskit`, `Cirq`, `PennyLane`, `PyTorch`, `Rust` for performance-critical kernels.
 
 ## 📊 GitHub Analytics
 
