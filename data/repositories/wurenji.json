@@ -21,17 +21,17 @@
     "tests/: 不连接 ROS 的离线视觉测试"
   ],
   "changes": [
-    "背景按连通域 label 0 排除，避免全前景场景误丢目标。",
+    "背景按连通域 label 0 排除，并保留原包围盒面积稳定排序，避免改变 circles[0] 的目标选择。",
     "修正歧义匹配时删除错误双向边及边表遍历中修改问题。",
     "穿环脚本相对源码路径导入；demo2 空函数改为显式 NotImplementedError，修复语法但保留未完成状态。",
-    "根 CMake 从失效 Windows 路径改为 catkin_workspace 入口；移除空 dynamic_reconfigure 调用及不存在 include 导出。",
+    "根 CMake 从失效 Windows 绝对路径链接改为真正的 Git 普通文件（100644）catkin_workspace 入口；移除空 dynamic_reconfigure 调用及不存在 include 导出。",
     "纠正 README 中不存在的脚本名，补充实际结构/依赖/运行风险；移除已提交 pyc，增加缓存忽略和 .editorconfig。"
   ],
   "checks": [
     {
       "name": "Offline image regression",
       "status": "passed",
-      "detail": "Python 3 + NumPy + OpenCV 5.0.0：3/3 测试通过（全前景、空图、多个匹配候选）。"
+      "detail": "Python 3 + NumPy + OpenCV 5.0.0：4/4 测试通过（全前景、空图、多个匹配候选、多目标完整 detect 顺序）。多目标回归确认 circles[0] 仍为 [100,570,450]，另一目标为 [140,130,160]。"
     },
     {
       "name": "Python AST",
@@ -52,19 +52,25 @@
       "name": "ROS/hardware integration",
       "status": "not_run",
       "detail": "无 Linux ROS/catkin、目标 CPU 厂商库或飞行硬件环境。"
+    },
+    {
+      "name": "Git file mode",
+      "status": "passed",
+      "detail": "git ls-files -s CMakeLists.txt：100644，确认不是符号链接120000。"
     }
   ],
   "limitations": [
     "未执行任何飞行服务；视觉单元测试不能证明控制稳定性或硬件安全。",
     "旧脚本仍含部署机器路径与 Python 2 风格 shebang，需要按目标 ROS/Python 环境配置。",
     "demo2.py 为未完成示例；整套 catkin 编译、消息生成、ABI、RTSP 和整机行为待验证。",
-    "保留上游 LICENSE，厂商二进制授权需分别确认。"
+    "保留上游 LICENSE，厂商二进制授权需分别确认。",
+    "用户已明确同意暂缓完整 ROS/飞行硬件验证；本轮仅修复已确认的文件类型和目标排序问题，未执行飞行服务。"
   ],
   "upstream": null,
   "date": "2026-10-30",
   "source_commit": "c08560ad98a905636e6fb7a4636bcaad06b87d32",
   "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/wurenji/",
   "maintenance_branch": "codex/repository-maintenance-20261030",
-  "maintenance_commit": "7aa751862d3b0c11bf2c570382d7143584f48a28",
+  "maintenance_commit": "cdfc10aa1d80b7b1e12c4c236bc25e0d858fe097",
   "review_url": "https://github.com/xiaoshecode/wurenji/pull/1"
 }

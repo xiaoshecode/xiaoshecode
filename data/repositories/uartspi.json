@@ -1,6 +1,6 @@
 {
   "name": "uartspi",
-  "summary": "UART/SPI Verilog 实验：修复复位端口和接收总线未知值驱动，整理主机工具和双份源文件说明。",
+  "summary": "UART/SPI Verilog 实验：恢复核心复位，新增保持原三引脚接口的启动复位包装层，整理主机与工程文件。",
   "purpose": "FPGA UART 多字节回环与独立 SPI Master，配套 Python 串口检查。",
   "setup": [
     "python -m venv .venv",
@@ -16,47 +16,56 @@
     "根目录 *.v: UART 模块、旧 testbench 与独立 SPI Master",
     "nbytes_uart_final.srcs/: Vivado 源/仿真/约束/IP 副本",
     "use/: Vivado 工程入口及主机客户端",
-    "tests/: 无硬件主机回归测试"
+    "tests/: 无硬件主机回归测试",
+    "uart_board_top.v（两份同步）：现有时钟/RX/TX 三物理端口，FPGA 配置后4时钟启动复位；tests/uart_board_startup_tb.v：自检启动平台。"
   ],
   "changes": [
     "恢复两份 uart 顶层 rst_n_i 输入，移除接收总线持续 x 驱动。",
     "spi_master.v 从 GB18030 转为 UTF-8，消除解析错误。",
     "主机程序改为命令行参数，默认波特率与 HDL 的 9600 一致，使用上下文管理关闭串口并拒绝非正次数。",
-    "补充 README、requirements.txt、.editorconfig 和缓存忽略规则。"
+    "补充 README、requirements.txt、.editorconfig 和缓存忽略规则。",
+    "板级 uart_board_top 保持原时钟/RX/TX 三端口，由4级初始化移位寄存器产生启动复位；不猜测或新增硬件引脚。",
+    "XPR 固定 uart_board_top 综合顶层，源路径相对工程目录指向实际兄弟目录，禁用旧 uart 顶层综合 checkpoint 的自动复用。"
   ],
   "checks": [
     {
-      "name": "Python host regression",
+      "name": "Python host and board project regression",
       "status": "passed",
-      "detail": "python -m unittest discover -s tests -v：3/3，通过回环、读失败关闭端口和次数校验。"
+      "detail": "python -m unittest discover -s tests -v：6/6，通过3项主机用例及3项工程顶层、三物理端口与XDC一致性、所有保存源引用和wrapper副本检查。"
     },
     {
       "name": "Root HDL parse/elaboration",
       "status": "passed",
-      "detail": "pyslang 12.1.0: 7 Verilog files, 0 errors, 45 warnings."
+      "detail": "pyslang 12.1.0: 根目录全部8个Verilog及新增启动测试平台共9文件，0 errors、45 warnings。"
     },
     {
       "name": "Vivado HDL parse/elaboration",
       "status": "passed",
-      "detail": "pyslang 12.1.0: 6 Verilog files, 0 errors, 20 warnings."
+      "detail": "pyslang 12.1.0: Vivado源/原测试平台及新增启动测试平台共8文件，0 errors、20 warnings。"
     },
     {
       "name": "Behavioral simulation / hardware",
       "status": "not_run",
-      "detail": "旧 testbench 无自动断言/结束条件；未运行 Vivado、时序分析或真实 UART/SPI 回环。"
+      "detail": "新自检启动平台已加入并解析/展开通过，但本环境没有可运行的RTL模拟器，因此尚未执行该行为仿真；未执行Vivado、时序分析或真实UART/SPI回环。"
+    },
+    {
+      "name": "Startup testbench elaboration",
+      "status": "passed",
+      "detail": "仅核心6个设计文件+自检测试平台，两套源分别7文件，0 errors、18 warnings；elaborated top均为uart_board_startup_tb。解析/展开不等于行为仿真。"
     }
   ],
   "limitations": [
-    "综合前需给恢复的低有效 rst_n_i 端口连接实际复位并配置对应 XDC 引脚，旧约束示例仍为注释。",
+    "保存的工程采用uart_board_top，仅用现有3个已约束物理端口；复位依赖Xilinx配置时寄存器初始化，只有配置后启动复位，没有按钮/看门狗/断钟恢复。单独集成uart核心需自行提供rst_n_i。",
     "剩余带符号比较、隐式调试线网、位宽告警须在参数化测试中继续评估。",
     "SPI CPOL/CPHA、边界数据宽度、跨字节收发未完成行为仿真。",
-    "仓库无统一 LICENSE。"
+    "仓库无统一 LICENSE。",
+    "用户已明确同意保留9600波特/100组默认值并暂缓FPGA实机验证；启动复位仿真仍需在具备RTL模拟器的环境执行。"
   ],
   "upstream": null,
   "date": "2026-10-30",
   "source_commit": "ac53dd5549762108013da5e95e249caea8891307",
   "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/uartspi/",
   "maintenance_branch": "codex/repository-maintenance-20261030",
-  "maintenance_commit": "57156401ba18084b7182fb09d089088656925721",
+  "maintenance_commit": "0335a66127a176321902d375920c4d600684c684",
   "review_url": "https://github.com/xiaoshecode/uartspi/pull/1"
 }

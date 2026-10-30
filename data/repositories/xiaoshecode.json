@@ -9,7 +9,7 @@
     "python scripts/build_docs.py：生成所有项目页面。",
     "python scripts/check_docs.py：检查记录完整性与站内链接。",
     "python -m http.server 8000 --directory docs：预览。",
-    "GitHub Pages 当前从维护分支 codex/repository-maintenance-20261030 的 /docs 发布。"
+    "GitHub Pages 从 main 分支的 /docs 发布。"
   ],
   "structure": [
     "README.md：GitHub 个人资料与文档入口。",
@@ -23,7 +23,8 @@
     "保留个人简介，增加公开仓库文档中心。",
     "提供每仓库独立页面、搜索与原创 / Fork 筛选。",
     "将文档数据、生成脚本和生成产物分层维护。",
-    "新增 EditorConfig 和 Python 缓存忽略规则。"
+    "新增 EditorConfig 和 Python 缓存忽略规则。",
+    "同步交叉审查发现的8项问题的修复与回归证据，合并后使用默认分支源码入口。"
   ],
   "checks": [
     {

@@ -3,7 +3,8 @@
   "summary": "清华大学校园服务和工具索引，含 MkDocs 站点。",
   "purpose": "清华大学校园服务和工具索引，含 MkDocs 站点。",
   "setup": [
-    "python -m pip install -r requirements.txt"
+    "python -m pip install -r requirements.txt",
+    "目录改名后重新安装本仓库 pre-commit 到 git rev-parse --git-path hooks/pre-commit 指定位置；先保留现有自定义检查。"
   ],
   "usage": [
     "python gen.readme.py  # 输出目录到终端",
@@ -18,7 +19,8 @@
   "changes": [
     "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。",
     "修复 Windows 无法检出的文件/目录名，并同步相关引用。",
-    "同步 pre-commit、README 模板和工具文档路径；生成器显式使用 UTF-8。"
+    "同步 pre-commit、README 模板和工具文档路径；生成器显式使用 UTF-8。",
+    "文档改为链接本Fork的hook，并明确旧复制hook需重新安装，避免继续访问已移除aux目录。"
   ],
   "checks": [
     {
@@ -45,11 +47,18 @@
       "name": "JavaScript syntax",
       "status": "passed",
       "detail": "3 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "迁移说明与README同步",
+      "status": "passed",
+      "detail": "使用python -X utf8 gen.readme.py重建两份README，二者字节一致；模板和生成结果均指向本Fork hook并包含重新安装步骤。"
     }
   ],
   "limitations": [
     "辅助脚本涉及校园账号、网络或费用查询，本次不执行这些外部操作；未验证服务链接当前可用性。"
   ],
   "upstream": "https://github.com/thuservices/thuservices",
+  "maintenance_commit": "c26548283a105e5a98f9ba047ee5db4ddbb083a2",
+  "maintenance_branch": "codex/repository-maintenance-20261030",
   "review_url": "https://github.com/xiaoshecode/thuservices/pull/1"
 }

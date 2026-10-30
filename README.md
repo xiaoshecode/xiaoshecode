@@ -29,5 +29,5 @@ python -m http.server 8000 --directory docs
 | `docs/repos/` | 生成的独立项目文档 |
 | `docs/index.html` | 文档中心入口 |
 
-修改资料后重新生成并检查页面，将源数据和生成结果一并提交。GitHub Pages 当前从 `codex/repository-maintenance-20261030` 分支的 `/docs` 发布（合并后可切换到 `main`），不需要额外框架或构建服务。验证记录须写明命令、环境与局限，不能将静态检查表述为实机测试。
+修改资料后重新生成并检查页面，将源数据和生成结果一并提交。GitHub Pages 从 `main` 分支的 `/docs` 发布，不需要额外框架或构建服务。验证记录须写明命令、环境与局限，不能将静态检查表述为实机测试。
 

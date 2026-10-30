@@ -34,7 +34,7 @@ def page(title: str, body: str, prefix: str = "") -> str:
 <body><a class="skip" href="#content">跳到正文</a>
 <header><div class="wrap"><a class="brand" href="{prefix}index.html">xiaoshecode <span>/ 开源仓库手册</span></a><a href="https://github.com/xiaoshecode">GitHub ↗</a></div></header>
 <main id="content" class="wrap">{body}</main>
-<footer class="wrap">检查快照：2026-10-30 · 文档由版本控制中的结构化记录生成。通过某项检查不等于项目不存在其他错误。<br><a href="https://github.com/xiaoshecode/xiaoshecode/tree/codex/repository-maintenance-20261030/data/repositories">查看记录与修订历史</a></footer>
+<footer class="wrap">检查快照：2026-10-30 · 文档由版本控制中的结构化记录生成。通过某项检查不等于项目不存在其他错误。<br><a href="https://github.com/xiaoshecode/xiaoshecode/tree/main/data/repositories">查看记录与修订历史</a></footer>
 </body></html>'''
 
 
@@ -57,14 +57,14 @@ def build() -> None:
             for c in record.get("checks", [])
         )
         review = record.get("review_url")
-        current_source = source + "/tree/codex/repository-maintenance-20261030" if review else source
+        current_source = source
         body = f'''<p class="eyebrow">{'FORK / 上游项目' if upstream else 'ORIGINAL / 原创仓库'}</p>
 <h1>{escape(name)}</h1><p class="lead">{escape(record.get('purpose') or record.get('summary', ''))}</p>
-<div class="links"><a href="{current_source}">本轮源码与 README ↗</a><a href="{source}/commits">默认分支提交 ↗</a><a href="../../index.html">全部仓库</a></div>'''
+<div class="links"><a href="{current_source}">源码与 README ↗</a><a href="{source}/commits">默认分支提交 ↗</a><a href="../../index.html">全部仓库</a></div>'''
         if review:
             if not str(review).startswith("https://github.com/xiaoshecode/"):
                 raise ValueError(f"Unexpected review URL: {review}")
-            body += f'<p class="notice">本页记录维护分支的改动和验证结果。默认分支是否已更新，请查看 <a href="{escape(review)}">Pull Request 的合并状态 ↗</a>。</p>'
+            body += f'<p class="notice">本页记录本轮维护的改动和验证结果。完整差异与实时合并状态请查看 <a href="{escape(review)}">Pull Request ↗</a>。</p>'
         if upstream:
             if not str(upstream).startswith("https://github.com/"):
                 raise ValueError(f"Unexpected upstream URL: {upstream}")
