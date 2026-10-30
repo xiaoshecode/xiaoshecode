@@ -1,0 +1,66 @@
+{
+  "name": "lfw_cnn",
+  "summary": "修复两个数据加载器，保留原有导入 API，规范路径去重并补齐回归测试。",
+  "purpose": "从本地 LFW 图片和两份标签清单构造 PyTorch Dataset 或旧接口批量划分；不含 CNN 模型与训练流程。",
+  "setup": [
+    "python -m venv .venv",
+    "激活环境后按 PyTorch 官方平台选择安装 torch/torchvision。",
+    "python -m pip install -r requirements.txt",
+    "准备图片目录及其父目录的 male_names.txt / female_names.txt；每行是图片相对路径。"
+  ],
+  "usage": [
+    "from LFW_pytorch_loader import LFW; dataset = LFW('dataset/easy_trainingdata', data_count=500, seed=42)",
+    "通过 torch.utils.data.DataLoader(dataset, batch_size=32) 使用；不同图片尺寸需先传入 Resize transform。",
+    "旧接口：from lfw_loader import DataLoader; data = DataLoader('dataset/easy_trainingdata'); data.loadLFW_label(); data.loadLFW_facedata(); data.getTrainData()"
+  ],
+  "structure": [
+    "lfw_data.py：全部标签路径校验、规范路径去重、跨类冲突检查及平衡采样。",
+    "lfw_loaders.py：PyTorch Dataset 和历史批量加载器的共享实现，避免兼容模块循环导入。",
+    "lfw_loader.py：原 DataLoader 入口，并保留维护草稿中的 LFW 导出。",
+    "LFW_pytorch_loader.py：原 LFW 入口，并保留维护草稿中的 DataLoader 导出。",
+    "tests/test_loaders.py：合成图片、旧导入 API、路径别名与采样前校验回归。",
+    "requirements.txt、pyproject.toml、.editorconfig：依赖下限和格式规范。"
+  ],
+  "changes": [
+    "删除导入阶段错误的自实例化与文件加载，去掉硬编码个人绝对路径。",
+    "修复 PILToTensor 错误调用、未定义字段及 Dataset 缺失 len/index 接口。",
+    "共享标签采样使用不重复样本、忽略空行、校验数量/文件/越界/冲突标签，可传 seed 复现。",
+    "可变状态改为实例级，重复加载替换旧数据，图像/标签/one-hot 同序，按实际数量划分。",
+    "README 说明数据布局、张量格式、接口、验证边界，新增测试与规范文件。",
+    "复审修复：恢复 lfw_loader.DataLoader 与 LFW_pytorch_loader.LFW 原导入路径；共享实现同时兼容维护草稿中的两种导入。",
+    "复审修复：采样前解析并校验全部路径，以规范路径去重和检查标签冲突，覆盖 ./、子目录/..、Windows 大小写别名。"
+  ],
+  "checks": [
+    {
+      "name": ".venv/Scripts/python.exe -B -m unittest discover -s tests -v",
+      "status": "passed",
+      "detail": "Windows/Python3.13.12：13 项测试运行，12 通过、1 跳过（本机无符号链接创建权限），0.269秒。原有合成图像测试保持通过；新增原导入、路径别名冲突/去重、未抽中路径越界检查及 Windows 大小写回归。"
+    },
+    {
+      "name": "ruff check .; ruff format --check .",
+      "status": "passed",
+      "detail": "退出0，Ruff 0.17.2。"
+    },
+    {
+      "name": "git diff origin/default HEAD --check",
+      "status": "passed",
+      "detail": "退出0"
+    },
+    {
+      "name": "复审回归先失败后修复",
+      "status": "passed",
+      "detail": "未改运行实现时新增回归得到5次断言失败、1次旧导入错误；修复后全部可执行项通过。首次沙箱因临时目录拒绝访问而失败，已在正常权限下复验。"
+    }
+  ],
+  "limitations": [
+    "测试环境 Windows/Python3.13.12、torch2.15.0+cpu、torchvision0.29.2+cpu、numpy2.5.4、Pillow13.0.0；未跑GPU训练或真实LFW数据。",
+    "首次系统 Conda 环境存在重复 OpenMP 运行库，已改用独立 .venv 验证；沙箱临时目录拒绝访问后在正常权限下复验通过。",
+    "图片级随机划分不保证人物身份隔离或分层；正式研究需正确的身份划分协议。",
+    "标签仅沿用输入分组；仓库未包含数据授权或代码许可证。",
+    "符号链接回归因 Windows 无创建权限跳过；规范路径逻辑包含 resolve，但本轮未实测该分支。"
+  ],
+  "upstream": null,
+  "commit": "78088e4e565abdcf8a6f5e4ac8132c90249d336a",
+  "branch": "codex/repository-maintenance-20261030",
+  "review_url": "https://github.com/xiaoshecode/lfw_cnn/pull/1"
+}

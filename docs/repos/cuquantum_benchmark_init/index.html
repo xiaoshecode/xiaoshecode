@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="xiaoshecode 公开仓库的使用、结构、维护与验证记录。">
+<title>cuquantum_benchmark_init · 开源仓库手册</title>
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body><a class="skip" href="#content">跳到正文</a>
+<header><div class="wrap"><a class="brand" href="../../index.html">xiaoshecode <span>/ 开源仓库手册</span></a><a href="https://github.com/xiaoshecode">GitHub ↗</a></div></header>
+<main id="content" class="wrap"><p class="eyebrow">ORIGINAL / 原创仓库</p>
+<h1>cuquantum_benchmark_init</h1><p class="lead">cuQuantum Benchmarks 的 QFT 递增与 Qiskit/Aer 随机电路运行脚本。</p>
+<div class="links"><a href="https://github.com/xiaoshecode/cuquantum_benchmark_init">源码与 README ↗</a><a href="https://github.com/xiaoshecode/cuquantum_benchmark_init/commits">默认分支提交 ↗</a><a href="../../index.html">全部仓库</a></div><p class="notice">本页记录本轮维护的改动和验证结果。完整差异与实时合并状态请查看 <a href="https://github.com/xiaoshecode/cuquantum_benchmark_init/pull/1">Pull Request ↗</a>。</p><nav class="toc" aria-label="本页目录"><a href="#setup">准备环境</a><a href="#usage">使用入口</a><a href="#structure">目录结构</a><a href="#checks">检查结果</a></nav>
+<section id="setup"><h2>准备环境</h2><ul><li>Python 3.10+；Bash；GPU 路径另需兼容 NVIDIA GPU/驱动/CUDA/后端。</li><li>先按 NVIDIA cuQuantum Benchmarks 上游文档安装匹配版本。</li><li>bash benchmark_env_install.sh /path/to/cuQuantum/benchmarks</li></ul></section>
+<section id="usage"><h2>使用入口</h2><ul><li>python benchmark_test.py --start-qubits 1 --max-qubits 20 --timeout 300</li><li>NUM_QUBITS=12 BENCHMARK_NAME=random bash benchmarks.sh</li></ul></section>
+<section id="structure"><h2>目录结构与职责</h2><ul><li>benchmark_test.py：可导入、范围受限、带每次子进程超时的运行器与 CLI。</li><li>benchmarks.sh：Qiskit/Aer 随机电路调用示例。</li><li>benchmark_env_install.sh：从显式指定的上游目录安装。</li><li>cuquantum_env_install.sh：历史 CUDA-Q/Conda 配方，本轮未执行。</li><li>tests/test_benchmark.py：子进程边界回归。</li><li>pyproject.toml、.editorconfig、.gitignore：Ruff、编辑器与产物规范。</li></ul></section>
+<section><h2>本次整理</h2><ul><li>以 subprocess.run(timeout=...) 终止超时进程，monotonic 计时；限制最大量子比特范围。</li><li>导入不执行基准；缺失命令返回127，超时返回124，后端错误保留退出码。</li><li>Shell 示例恢复 benchmark/nqubits 必需参数，使用严格错误处理与显式安装目录。</li><li>新增 README、EditorConfig、Ruff 配置、忽略规则和回归测试。</li></ul></section>
+<section id="checks"><h2>检查结果</h2><div class="table-wrap"><table><thead><tr><th>检查项</th><th>状态</th><th>证据 / 范围</th></tr></thead><tbody><tr><td>python -m unittest discover -s tests -v</td><td>passed</td><td>退出0；5测试，覆盖范围/超时/错误/缺失命令/非法含非有限参数。模拟进程，无 GPU 操作。</td></tr><tr><td>ruff check .; ruff format --check .</td><td>passed</td><td>退出0；使用 thuauth 隔离环境的 Ruff 0.17.2。</td></tr><tr><td>python benchmark_test.py --help</td><td>passed</td><td>退出0，帮助输出不启动基准。</td></tr><tr><td>bash -n (3 shell scripts)</td><td>passed</td><td>三个脚本分别执行语法检查，均退出0；未执行安装或基准。</td></tr><tr><td>git diff origin/default HEAD --check</td><td>passed</td><td>退出0</td></tr></tbody></table></div></section>
+<section><h2>已知限制与后续工作</h2><ul><li>未运行真实 GPU 基准，也未验证 CUDA、MPI、PennyLane/Qiskit 后端版本兼容和性能。</li><li>历史 cuquantum_env_install.sh 实际安装 CUDA-Q，与 cuQuantum Benchmarks 不同；保留为参考，未执行。</li><li>未新增代码许可证，原仓库未声明许可。</li></ul></section></main>
+<footer class="wrap">检查快照：2026-10-30 · 文档由版本控制中的结构化记录生成。通过某项检查不等于项目不存在其他错误。<br><a href="https://github.com/xiaoshecode/xiaoshecode/tree/main/data/repositories">查看记录与修订历史</a></footer>
+</body></html>

@@ -1,0 +1,64 @@
+{
+  "name": "cuquantum_benchmark_init",
+  "summary": "补齐 README、规范配置和测试；修复基准超时不生效、失败退出码丢失及示例参数缺失。",
+  "purpose": "cuQuantum Benchmarks 的 QFT 递增与 Qiskit/Aer 随机电路运行脚本。",
+  "setup": [
+    "Python 3.10+；Bash；GPU 路径另需兼容 NVIDIA GPU/驱动/CUDA/后端。",
+    "先按 NVIDIA cuQuantum Benchmarks 上游文档安装匹配版本。",
+    "bash benchmark_env_install.sh /path/to/cuQuantum/benchmarks"
+  ],
+  "usage": [
+    "python benchmark_test.py --start-qubits 1 --max-qubits 20 --timeout 300",
+    "NUM_QUBITS=12 BENCHMARK_NAME=random bash benchmarks.sh"
+  ],
+  "structure": [
+    "benchmark_test.py：可导入、范围受限、带每次子进程超时的运行器与 CLI。",
+    "benchmarks.sh：Qiskit/Aer 随机电路调用示例。",
+    "benchmark_env_install.sh：从显式指定的上游目录安装。",
+    "cuquantum_env_install.sh：历史 CUDA-Q/Conda 配方，本轮未执行。",
+    "tests/test_benchmark.py：子进程边界回归。",
+    "pyproject.toml、.editorconfig、.gitignore：Ruff、编辑器与产物规范。"
+  ],
+  "changes": [
+    "以 subprocess.run(timeout=...) 终止超时进程，monotonic 计时；限制最大量子比特范围。",
+    "导入不执行基准；缺失命令返回127，超时返回124，后端错误保留退出码。",
+    "Shell 示例恢复 benchmark/nqubits 必需参数，使用严格错误处理与显式安装目录。",
+    "新增 README、EditorConfig、Ruff 配置、忽略规则和回归测试。"
+  ],
+  "checks": [
+    {
+      "name": "python -m unittest discover -s tests -v",
+      "status": "passed",
+      "detail": "退出0；5测试，覆盖范围/超时/错误/缺失命令/非法含非有限参数。模拟进程，无 GPU 操作。"
+    },
+    {
+      "name": "ruff check .; ruff format --check .",
+      "status": "passed",
+      "detail": "退出0；使用 thuauth 隔离环境的 Ruff 0.17.2。"
+    },
+    {
+      "name": "python benchmark_test.py --help",
+      "status": "passed",
+      "detail": "退出0，帮助输出不启动基准。"
+    },
+    {
+      "name": "bash -n (3 shell scripts)",
+      "status": "passed",
+      "detail": "三个脚本分别执行语法检查，均退出0；未执行安装或基准。"
+    },
+    {
+      "name": "git diff origin/default HEAD --check",
+      "status": "passed",
+      "detail": "退出0"
+    }
+  ],
+  "limitations": [
+    "未运行真实 GPU 基准，也未验证 CUDA、MPI、PennyLane/Qiskit 后端版本兼容和性能。",
+    "历史 cuquantum_env_install.sh 实际安装 CUDA-Q，与 cuQuantum Benchmarks 不同；保留为参考，未执行。",
+    "未新增代码许可证，原仓库未声明许可。"
+  ],
+  "upstream": null,
+  "commit": "926794455fa546d805359106f3d93636b59f4e50",
+  "branch": "codex/repository-maintenance-20261030",
+  "review_url": "https://github.com/xiaoshecode/cuquantum_benchmark_init/pull/1"
+}

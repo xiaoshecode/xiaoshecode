@@ -1,0 +1,53 @@
+{
+  "name": "DDS49957",
+  "summary": "DDS/PLL FPGA 工程快照：补充工程恢复说明，统一 profile 位宽，标明未完成的硬件逻辑。",
+  "purpose": "AD9910/AD9957 相关实验控制；VHDL/Verilog、Vivado Block Design、IP 和板卡约束。",
+  "setup": [
+    "使用与硬件一致的 Vivado；DDS49957.bd 记录版本 2018.1、器件 xc7k70tfbv676-1。",
+    "仓库缺少完整 .xpr/重建 Tcl；先恢复 module reference 与 IP，再选择一套匹配板卡的约束。"
+  ],
+  "usage": [
+    "按 README 恢复工程后执行综合、实现、时序分析。当前不能承诺一键构建或直接下载。"
+  ],
+  "structure": [
+    "sources_1/code_save/: 手写 HDL",
+    "sources_1/bd/: Block Design 与生成包装层",
+    "sources_1/ip_save/: FIFO/时钟/ILA/VIO IP",
+    "constrs_1/: AD9910/AD9957 参考约束",
+    "docs/maintenance.md: 检查记录与待办"
+  ],
+  "changes": [
+    "新增 README 与维护记录、在线文档入口、.editorconfig 和生成物忽略规则。",
+    "profile_sync 缓存由 4 位统一到 3 位，与输入输出匹配，保留时钟沿及数据流。"
+  ],
+  "checks": [
+    {
+      "name": "Verilog parse/elaboration",
+      "status": "passed",
+      "detail": "pyslang 12.1.0：3 个手写 .v，0 errors、11 warnings；告警为 Digi_ATT 状态常量类型及多余分号。"
+    },
+    {
+      "name": "Vivado metadata",
+      "status": "passed",
+      "detail": "29 个 XML/XCI/BD/BXML 文件解析通过（含 UTF-8 BOM）。"
+    },
+    {
+      "name": "VHDL/Vivado/hardware",
+      "status": "not_run",
+      "detail": "缺少 Vivado、完整工程入口、混合语言测试平台和硬件。"
+    }
+  ],
+  "limitations": [
+    "pll_config_mcu.v 的 spi_tx_data 仅复位赋值，缺失 PLL 寄存器表；不能据此认定可工作。",
+    "profile_switch 和内部 profile 输入未使用；CDC/时序/复位需要硬件协议与仿真确认。",
+    "未进行 VHDL 分析、厂商 IP 综合、实现或上板验证。",
+    "仓库无统一 LICENSE，复用授权需确认。"
+  ],
+  "upstream": null,
+  "date": "2026-10-30",
+  "source_commit": "ce2f82f490158b0d5ec80bc8f016b70fc5a52c74",
+  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/DDS49957/",
+  "maintenance_branch": "codex/repository-maintenance-20261030",
+  "maintenance_commit": "690ccc02d64f231282b2d6f1181ea96a8e6430ce",
+  "review_url": "https://github.com/xiaoshecode/DDS49957/pull/1"
+}

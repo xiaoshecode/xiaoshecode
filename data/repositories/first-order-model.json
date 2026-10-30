@@ -1,0 +1,49 @@
+{
+  "name": "first-order-model",
+  "summary": "First Order Motion Model 论文的人像/物体运动迁移实现。",
+  "purpose": "First Order Motion Model 论文的人像/物体运动迁移实现。",
+  "setup": [
+    "在隔离 Python 环境安装 requirements.txt 的历史版本依赖。",
+    "python -m pip install -r requirements.txt"
+  ],
+  "usage": [
+    "python demo.py --config config/vox-256.yaml --driving_video driving.mp4 --source_image source.png --checkpoint checkpoint.pth.tar --relative --adapt_scale"
+  ],
+  "structure": [
+    "demo.py — 推理入口",
+    "run.py / train.py — 训练",
+    "modules/ — 网络组件",
+    "config/ — 数据集配置",
+    "frames_dataset.py — 训练数据加载"
+  ],
+  "changes": [
+    "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。"
+  ],
+  "checks": [
+    {
+      "name": "仓库目录与入口盘点",
+      "status": "passed",
+      "detail": "检查 Git 索引中的 47 个路径、README 和项目配置；不等于功能验收。"
+    },
+    {
+      "name": "Python AST",
+      "status": "passed",
+      "detail": "21 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "JSON/notebook parse",
+      "status": "passed",
+      "detail": "2 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "完整构建与端到端运行",
+      "status": "not_run",
+      "detail": "旧版本 PyTorch/scikit-image 依赖可能不兼容当前 Python；未下载训练数据或模型，未完成 GPU 推理。"
+    }
+  ],
+  "limitations": [
+    "旧版本 PyTorch/scikit-image 依赖可能不兼容当前 Python；未下载训练数据或模型，未完成 GPU 推理。"
+  ],
+  "upstream": "https://github.com/AliaksandrSiarohin/first-order-model",
+  "review_url": "https://github.com/xiaoshecode/first-order-model/pull/1"
+}

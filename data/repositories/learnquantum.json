@@ -1,0 +1,36 @@
+{
+  "name": "learnquantum",
+  "summary": "量子计算学习资源和论文索引。",
+  "purpose": "量子计算学习资源和论文索引。",
+  "setup": [
+    "直接阅读 README.md，不需要安装运行时。"
+  ],
+  "usage": [
+    "通过 README.md 的分类链接访问资源，papers/ 保存论文附件。"
+  ],
+  "structure": [
+    "README.md — 分类学习索引",
+    "papers/ — 论文附件"
+  ],
+  "changes": [
+    "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。",
+    "修复 Windows 无法检出的文件/目录名，并同步相关引用。"
+  ],
+  "checks": [
+    {
+      "name": "仓库目录与入口盘点",
+      "status": "passed",
+      "detail": "检查 Git 索引中的 11 个路径、README 和项目配置；不等于功能验收。"
+    },
+    {
+      "name": "完整构建与端到端运行",
+      "status": "not_run",
+      "detail": "资源仓库没有可执行应用；未逐篇验证论文内容或逐个验证外部链接时效。"
+    }
+  ],
+  "limitations": [
+    "资源仓库没有可执行应用；未逐篇验证论文内容或逐个验证外部链接时效。"
+  ],
+  "upstream": "https://github.com/JohnCoogan/learnquantum",
+  "review_url": "https://github.com/xiaoshecode/learnquantum/pull/1"
+}

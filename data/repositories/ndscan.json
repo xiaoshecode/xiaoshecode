@@ -1,0 +1,55 @@
+{
+  "name": "ndscan",
+  "summary": "在 ARTIQ 实验上提供可组合实验片段和多维扫描。",
+  "purpose": "在 ARTIQ 实验上提供可组合实验片段和多维扫描。",
+  "setup": [
+    "准备匹配 pyproject.toml 的 ARTIQ 8 / Python 3.10+ 环境。",
+    "python -m pip install -e ."
+  ],
+  "usage": [
+    "artiq_dashboard -p ndscan.dashboard_plugin",
+    "python -m unittest discover -v test"
+  ],
+  "structure": [
+    "ndscan/experiment/ — 实验片段与扫描",
+    "ndscan/plots/ — 结果展示",
+    "examples/ — 实验示例",
+    "test/ — 测试",
+    "docs/ — 上游 Sphinx 文档"
+  ],
+  "changes": [
+    "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。"
+  ],
+  "checks": [
+    {
+      "name": "仓库目录与入口盘点",
+      "status": "passed",
+      "detail": "检查 Git 索引中的 77 个路径、README 和项目配置；不等于功能验收。"
+    },
+    {
+      "name": "Python AST",
+      "status": "passed",
+      "detail": "56 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "XML parse",
+      "status": "passed",
+      "detail": "1 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "TOML parse",
+      "status": "passed",
+      "detail": "1 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "完整构建与端到端运行",
+      "status": "not_run",
+      "detail": "ARTIQ、Qt、oitg 和 Git 依赖未安装；未运行依赖这些组件的测试或连接实验设备。"
+    }
+  ],
+  "limitations": [
+    "ARTIQ、Qt、oitg 和 Git 依赖未安装；未运行依赖这些组件的测试或连接实验设备。"
+  ],
+  "upstream": "https://github.com/OxfordIonTrapGroup/ndscan",
+  "review_url": "https://github.com/xiaoshecode/ndscan/pull/1"
+}

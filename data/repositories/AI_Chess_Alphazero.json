@@ -1,0 +1,46 @@
+{
+  "name": "AI_Chess_Alphazero",
+  "summary": "使用蒙特卡洛树搜索与 Paddle/PyTorch 网络训练中国象棋 AI。",
+  "purpose": "使用蒙特卡洛树搜索与 Paddle/PyTorch 网络训练中国象棋 AI。",
+  "setup": [
+    "安装与显卡 CUDA 匹配的 PyTorch 或 Paddle GPU 环境；配置 config.py 的 use_frame 和模型路径。"
+  ],
+  "usage": [
+    "python collect.py",
+    "python train.py",
+    "python play_with_ai.py"
+  ],
+  "structure": [
+    "game.py — 棋盘规则",
+    "mcts.py / mcts_pure.py — 搜索",
+    "pytorch_net.py / paddle_net.py — 网络后端",
+    "collect.py / train.py — 自我对弈与训练",
+    "config.py — 参数与 Redis 配置"
+  ],
+  "changes": [
+    "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。",
+    "更正 Paddle 后端选择说明误写为 PyTorch 的问题。"
+  ],
+  "checks": [
+    {
+      "name": "仓库目录与入口盘点",
+      "status": "passed",
+      "detail": "检查 Git 索引中的 37 个路径、README 和项目配置；不等于功能验收。"
+    },
+    {
+      "name": "Python AST",
+      "status": "passed",
+      "detail": "13 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "完整构建与端到端运行",
+      "status": "not_run",
+      "detail": "没有可复现的依赖锁文件；训练需要 GPU、模型和数据，未进行训练或 GUI 联调。"
+    }
+  ],
+  "limitations": [
+    "没有可复现的依赖锁文件；训练需要 GPU、模型和数据，未进行训练或 GUI 联调。"
+  ],
+  "upstream": "https://github.com/tensorfly-gpu/aichess",
+  "review_url": "https://github.com/xiaoshecode/AI_Chess_Alphazero/pull/1"
+}

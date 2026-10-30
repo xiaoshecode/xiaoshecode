@@ -1,0 +1,60 @@
+{
+  "name": "xiaoshecode.github.io",
+  "summary": "基于 Astro 的中英文双语学术主页。",
+  "purpose": "将个人资料、动态、论文和项目集中在轻量静态主页，支持语言与主题切换。",
+  "setup": [
+    "Node.js 22.19+，npm 9.6.5+；最低 Node 版本与锁文件中的 undici 要求一致。",
+    "npm ci：安装 package-lock.json 锁定的依赖。"
+  ],
+  "usage": [
+    "npm run dev：本地开发。",
+    "npm run build：构建到 dist/。",
+    "npm run preview：预览构建产物。",
+    "网站：https://xiaoshecode.github.io/"
+  ],
+  "structure": [
+    "src/pages/index.astro：页面组合。",
+    "src/components/：布局和内容组件。",
+    "src/data/：双语文案、论文、动态和项目数据。",
+    "src/content.config.ts：内容字段校验。",
+    "src/scripts/main.ts：语言、主题和滚动交互。",
+    "src/styles/global.css：全站样式。",
+    "public/：静态资源；dist/：忽略的生成产物。"
+  ],
+  "changes": [
+    "通过兼容范围内的 npm audit fix 更新锁文件，修复 5 项高危依赖告警。",
+    "README 补充环境要求、结构说明、npm ci、维护规范与文档入口。",
+    "新增 .editorconfig 统一新编辑的文本规范。",
+    "修正最低 Node.js 版本为22.19，与锁文件 engines 一致；实际生产构建仍为Node24.20.0的验证记录。"
+  ],
+  "checks": [
+    {
+      "name": "生产构建",
+      "status": "通过",
+      "detail": "Node 24.20.0；npm run build 在依赖修复前后均成功，生成 1 个静态页面。"
+    },
+    {
+      "name": "依赖审计",
+      "status": "通过",
+      "detail": "npm audit fix --ignore-scripts 完成；2026-10-30 检测结果为 0 vulnerabilities，修复前为 5 high。"
+    },
+    {
+      "name": "差异检查",
+      "status": "通过",
+      "detail": "git diff --check 未报告空白错误。"
+    },
+    {
+      "name": "Node 最低版本声明核对",
+      "status": "通过",
+      "detail": "package-lock.json 中 undici 8.12.3 要求 Node >=22.19.0；README 与记录同步为22.19+。未额外运行22.19环境。"
+    }
+  ],
+  "limitations": [
+    "依赖审计是执行时刻的快照，不保证不存在未知漏洞。",
+    "Astro build 不是完整 TypeScript 类型检查；本次未执行独立浏览器端回归测试。"
+  ],
+  "upstream": null,
+  "maintenance_commit": "3d9909c62633a5597b17dbf7ae2a6d842d5ad795",
+  "maintenance_branch": "codex/repository-maintenance-20261030",
+  "review_url": "https://github.com/xiaoshecode/xiaoshecode.github.io/pull/1"
+}

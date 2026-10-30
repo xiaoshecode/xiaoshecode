@@ -1,0 +1,63 @@
+{
+  "name": "artiq",
+  "summary": "用于量子实验的实时控制、编译器、FPGA 固件和主机工具。",
+  "purpose": "用于量子实验的实时控制、编译器、FPGA 固件和主机工具。",
+  "setup": [
+    "按 doc/manual 的 Nix 或 MSYS2 说明准备匹配版本环境。"
+  ],
+  "usage": [
+    "阅读 doc/manual/introduction.rst 和 doc/manual/installing.rst。"
+  ],
+  "structure": [
+    "artiq/compiler/ — 实验语言编译器",
+    "artiq/coredevice/ — 核心设备驱动",
+    "artiq/gateware/ — FPGA 逻辑",
+    "artiq/firmware/ — Rust 固件",
+    "doc/manual/ — 上游手册"
+  ],
+  "changes": [
+    "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。"
+  ],
+  "checks": [
+    {
+      "name": "仓库目录与入口盘点",
+      "status": "passed",
+      "detail": "检查 Git 索引中的 751 个路径、README 和项目配置；不等于功能验收。"
+    },
+    {
+      "name": "Python AST",
+      "status": "passed",
+      "detail": "557 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "JSON/notebook parse",
+      "status": "passed",
+      "detail": "5 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "TOML parse",
+      "status": "passed",
+      "detail": "17 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "XML parse",
+      "status": "passed",
+      "detail": "3 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "JavaScript syntax",
+      "status": "passed",
+      "detail": "2 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "完整构建与端到端运行",
+      "status": "not_run",
+      "detail": "语法检查排除 11 个编译器测试夹具；未进行 Nix 构建、Rust 交叉编译、FPGA 综合或硬件时序验证。"
+    }
+  ],
+  "limitations": [
+    "语法检查排除 11 个编译器测试夹具；未进行 Nix 构建、Rust 交叉编译、FPGA 综合或硬件时序验证。"
+  ],
+  "upstream": "https://github.com/m-labs/artiq",
+  "review_url": "https://github.com/xiaoshecode/artiq/pull/1"
+}
