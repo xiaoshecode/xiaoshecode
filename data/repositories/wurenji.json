@@ -1,0 +1,67 @@
+{
+  "name": "wurenji",
+  "summary": "ROS 1 无人机视觉项目：修复环检测匹配和入口错误，补充离线回归测试及部署边界。",
+  "purpose": "We are 昌平队的飞控服务、图像发布、RTSP 解码与视觉穿环实验。",
+  "setup": [
+    "Linux + ROS 1/catkin + C++14 + OpenCV；厂商 SDK 和 .so 必须匹配目标 CPU。",
+    "source /opt/ros/melodic/setup.bash",
+    "将检出作为 catkin_ws/src，执行 catkin_make；包依赖需先满足，完整构建未验证。"
+  ],
+  "usage": [
+    "离线独立 Python 3 环境：python -m pip install numpy opencv-python-headless",
+    "python -m unittest discover -s tests -v",
+    "部署脚本顺序：startpsdk.sh、startroscore.sh、startuavservice.sh、startimage.sh、pass_ring.sh。运行前检查脚本机器路径；最后一步会真实起飞。"
+  ],
+  "structure": [
+    "raspicam_node/: ttauav_node 消息/服务、通信与视觉",
+    "raspicam_node/src/cv/: 圆环图像算法",
+    "raspicam_node/src/test_scripts/pass_ring.py: 飞行状态机",
+    "image_pub/: 图像发布及厂商 RTSP 库",
+    "Decodertest/: 独立解码器示例",
+    "tests/: 不连接 ROS 的离线视觉测试"
+  ],
+  "changes": [
+    "背景按连通域 label 0 排除，避免全前景场景误丢目标。",
+    "修正歧义匹配时删除错误双向边及边表遍历中修改问题。",
+    "穿环脚本相对源码路径导入；demo2 空函数改为显式 NotImplementedError，修复语法但保留未完成状态。",
+    "根 CMake 从失效 Windows 路径改为 catkin_workspace 入口；移除空 dynamic_reconfigure 调用及不存在 include 导出。",
+    "纠正 README 中不存在的脚本名，补充实际结构/依赖/运行风险；移除已提交 pyc，增加缓存忽略和 .editorconfig。"
+  ],
+  "checks": [
+    {
+      "name": "Offline image regression",
+      "status": "passed",
+      "detail": "Python 3 + NumPy + OpenCV 5.0.0：3/3 测试通过（全前景、空图、多个匹配候选）。"
+    },
+    {
+      "name": "Python AST",
+      "status": "passed",
+      "detail": "11 个 .py 文件语法解析通过；未执行 ROS 导入。"
+    },
+    {
+      "name": "Shell syntax",
+      "status": "passed",
+      "detail": "Git Bash bash -n 分别检查 5 个根目录 .sh 均通过，未执行脚本。"
+    },
+    {
+      "name": "Package XML",
+      "status": "passed",
+      "detail": "2 个 package.xml 解析通过。"
+    },
+    {
+      "name": "ROS/hardware integration",
+      "status": "not_run",
+      "detail": "无 Linux ROS/catkin、目标 CPU 厂商库或飞行硬件环境。"
+    }
+  ],
+  "limitations": [
+    "未执行任何飞行服务；视觉单元测试不能证明控制稳定性或硬件安全。",
+    "旧脚本仍含部署机器路径与 Python 2 风格 shebang，需要按目标 ROS/Python 环境配置。",
+    "demo2.py 为未完成示例；整套 catkin 编译、消息生成、ABI、RTSP 和整机行为待验证。",
+    "保留上游 LICENSE，厂商二进制授权需分别确认。"
+  ],
+  "upstream": null,
+  "date": "2026-10-30",
+  "source_commit": "c08560ad98a905636e6fb7a4636bcaad06b87d32",
+  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/wurenji/"
+}

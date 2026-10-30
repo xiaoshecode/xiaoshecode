@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="xiaoshecode 公开仓库的使用、结构、维护与验证记录。">
+<title>wurenji · 开源仓库手册</title>
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body><a class="skip" href="#content">跳到正文</a>
+<header><div class="wrap"><a class="brand" href="../../index.html">xiaoshecode <span>/ 开源仓库手册</span></a><a href="https://github.com/xiaoshecode">GitHub ↗</a></div></header>
+<main id="content" class="wrap"><p class="eyebrow">ORIGINAL / 原创仓库</p>
+<h1>wurenji</h1><p class="lead">We are 昌平队的飞控服务、图像发布、RTSP 解码与视觉穿环实验。</p>
+<div class="links"><a href="https://github.com/xiaoshecode/wurenji">本轮源码与 README ↗</a><a href="https://github.com/xiaoshecode/wurenji/commits">默认分支提交 ↗</a><a href="../../index.html">全部仓库</a></div><nav class="toc" aria-label="本页目录"><a href="#setup">准备环境</a><a href="#usage">使用入口</a><a href="#structure">目录结构</a><a href="#checks">检查结果</a></nav>
+<section id="setup"><h2>准备环境</h2><ul><li>Linux + ROS 1/catkin + C++14 + OpenCV；厂商 SDK 和 .so 必须匹配目标 CPU。</li><li>source /opt/ros/melodic/setup.bash</li><li>将检出作为 catkin_ws/src，执行 catkin_make；包依赖需先满足，完整构建未验证。</li></ul></section>
+<section id="usage"><h2>使用入口</h2><ul><li>离线独立 Python 3 环境：python -m pip install numpy opencv-python-headless</li><li>python -m unittest discover -s tests -v</li><li>部署脚本顺序：startpsdk.sh、startroscore.sh、startuavservice.sh、startimage.sh、pass_ring.sh。运行前检查脚本机器路径；最后一步会真实起飞。</li></ul></section>
+<section id="structure"><h2>目录结构与职责</h2><ul><li>raspicam_node/: ttauav_node 消息/服务、通信与视觉</li><li>raspicam_node/src/cv/: 圆环图像算法</li><li>raspicam_node/src/test_scripts/pass_ring.py: 飞行状态机</li><li>image_pub/: 图像发布及厂商 RTSP 库</li><li>Decodertest/: 独立解码器示例</li><li>tests/: 不连接 ROS 的离线视觉测试</li></ul></section>
+<section><h2>本次整理</h2><ul><li>背景按连通域 label 0 排除，避免全前景场景误丢目标。</li><li>修正歧义匹配时删除错误双向边及边表遍历中修改问题。</li><li>穿环脚本相对源码路径导入；demo2 空函数改为显式 NotImplementedError，修复语法但保留未完成状态。</li><li>根 CMake 从失效 Windows 路径改为 catkin_workspace 入口；移除空 dynamic_reconfigure 调用及不存在 include 导出。</li><li>纠正 README 中不存在的脚本名，补充实际结构/依赖/运行风险；移除已提交 pyc，增加缓存忽略和 .editorconfig。</li></ul></section>
+<section id="checks"><h2>检查结果</h2><div class="table-wrap"><table><thead><tr><th>检查项</th><th>状态</th><th>证据 / 范围</th></tr></thead><tbody><tr><td>Offline image regression</td><td>passed</td><td>Python 3 + NumPy + OpenCV 5.0.0：3/3 测试通过（全前景、空图、多个匹配候选）。</td></tr><tr><td>Python AST</td><td>passed</td><td>11 个 .py 文件语法解析通过；未执行 ROS 导入。</td></tr><tr><td>Shell syntax</td><td>passed</td><td>Git Bash bash -n 分别检查 5 个根目录 .sh 均通过，未执行脚本。</td></tr><tr><td>Package XML</td><td>passed</td><td>2 个 package.xml 解析通过。</td></tr><tr><td>ROS/hardware integration</td><td>not_run</td><td>无 Linux ROS/catkin、目标 CPU 厂商库或飞行硬件环境。</td></tr></tbody></table></div></section>
+<section><h2>已知限制与后续工作</h2><ul><li>未执行任何飞行服务；视觉单元测试不能证明控制稳定性或硬件安全。</li><li>旧脚本仍含部署机器路径与 Python 2 风格 shebang，需要按目标 ROS/Python 环境配置。</li><li>demo2.py 为未完成示例；整套 catkin 编译、消息生成、ABI、RTSP 和整机行为待验证。</li><li>保留上游 LICENSE，厂商二进制授权需分别确认。</li></ul></section></main>
+<footer class="wrap">检查快照：2026-10-30 · 文档由版本控制中的结构化记录生成。通过某项检查不等于项目不存在其他错误。<br><a href="https://github.com/xiaoshecode/xiaoshecode/tree/codex/repository-maintenance-20261030/data/repositories">查看记录与修订历史</a></footer>
+</body></html>

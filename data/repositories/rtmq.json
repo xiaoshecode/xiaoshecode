@@ -1,0 +1,46 @@
+{
+  "name": "rtmq",
+  "summary": "RTMQ / TIQC 实验控制软件的安装、配置与调试文档。",
+  "purpose": "用 MkDocs 维护 RTMQ、Seq 和 Device 使用手册；实验控制软件本体不在本仓库。",
+  "setup": [
+    "Python 3.10+；创建并激活虚拟环境。",
+    "python -m pip install -r requirements-docs.txt"
+  ],
+  "usage": [
+    "python -m mkdocs serve：本地预览。",
+    "python -m mkdocs build --strict：构建并检查文档。",
+    "使用手册：https://xiaoshecode.github.io/rtmq/"
+  ],
+  "structure": [
+    "docs/：Markdown 文档源文件；Seq* 与 Device* 按设备分别组织。",
+    "docs/figure/：插图。",
+    "mkdocs.yml：导航、主题、搜索与日期插件。",
+    "requirements-docs.txt：文档环境约束。",
+    ".github/workflows/ci.yml：部署到 gh-pages。",
+    "site/：生成产物，现已从源码索引移除并忽略。"
+  ],
+  "changes": [
+    "重写 README，补充安装、目录职责、维护与发布说明。",
+    "修复编辑链接指向不存在的 master 分支，改为 main。",
+    "显式启用 search 插件，恢复因自定义插件列表而丢失的搜索功能。",
+    "补全 GitLab 构建所需的日期插件依赖，并启用严格构建。",
+    "清理源码分支中陈旧的 site/ 生成产物，补充 .gitignore 和 .editorconfig。"
+  ],
+  "checks": [
+    {
+      "name": "MkDocs 严格构建",
+      "status": "通过",
+      "detail": "Python 3.13.12 / MkDocs 1.6.1 / Material 9.8.0；python -m mkdocs build --strict --site-dir <独立检查目录> 成功。"
+    },
+    {
+      "name": "实验设备运行",
+      "status": "未执行",
+      "detail": "本次只检查文档构建，没有连接实验设备。"
+    }
+  ],
+  "limitations": [
+    "文档中的外部软件共享资源与设备行为未实机验证。",
+    "现有 GitHub 工作流仍独立安装依赖；requirements-docs.txt 供本地和 GitLab 使用。"
+  ],
+  "upstream": null
+}

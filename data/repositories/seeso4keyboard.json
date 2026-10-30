@@ -1,0 +1,61 @@
+{
+  "name": "seeso4keyboard",
+  "summary": "SeeSo/OpenCV 视线实验：移除源码密钥，修复初始化/同步/资源管理，补齐 CSV 实现和独立测试。",
+  "purpose": "基于 VisualCamp Windows C++ sample 的摄像头视线采集、校准、CSV 与 AVI 记录。",
+  "setup": [
+    "Windows + C++11 + CMake 3.5+；自行提供 SeeSo SDK/授权及 OpenCV C++。",
+    "opencv/、seeso/ 各需 CMakeLists.txt 包装文件，导出同名 target 及 OPENCV_DLL/SEESO_DLL。",
+    "cmake -S . -B build/app",
+    "cmake --build build/app --config Release"
+  ],
+  "usage": [
+    "在本机环境设置 SEESO_LICENSE_KEY 后启动 build/app/Release/seeso_windows.exe。",
+    "摄像头索引 0；C 校准、Esc 退出。gaze.csv 每次启动重新写入；AVI/校准文件保存到工作目录。",
+    "cmake -S . -B build/support -DSEESO_SUPPORT_TESTS_ONLY=ON",
+    "cmake --build build/support --config Release",
+    "ctest --test-dir build/support -C Release --output-on-failure"
+  ],
+  "structure": [
+    "main.cpp: 环境变量、初始化、校准与 GUI 循环",
+    "camera_thread.*: 摄像头线程和本地视频记录",
+    "tracker_manager.*: SeeSo 回调和校准状态",
+    "view.* / drawables.h: GUI 绘制",
+    "priority_mutex.* / simple_signal.h: 同步和事件",
+    "utils/CSVLogger.hpp: CSV 文件与转义",
+    "tests/support_test.cpp: 独立回归测试"
+  ],
+  "changes": [
+    "源码密钥改从 SEESO_LICENSE_KEY 读取；未改写公开历史。",
+    "修复 initialize 漏传校准数据；新增缺失 CSVLogger.hpp，补齐标准库头文件。",
+    "非阻塞高优先级 try-lock 不注册等待者，避免计数泄漏及无人通知的低优先级等待死锁。",
+    "校准完成重置进行中标记，允许再次校准；空数据不发送给 SDK。",
+    "VideoWriter 改为值对象，先 join 再 release，修复失败路径未初始化指针访问；默认用摄像头取代个人绝对视频路径，跳过空帧。",
+    "增加 SDK-independent CMake 测试模式、README、.editorconfig、输出与本地 SDK 忽略规则。"
+  ],
+  "checks": [
+    {
+      "name": "C++ standalone build",
+      "status": "passed",
+      "detail": "MSVC 19.51.36256 + CMake / Visual Studio 18 2026：独立支撑组件编译成功。"
+    },
+    {
+      "name": "CTest support",
+      "status": "passed",
+      "detail": "1/1 测试通过；Release 中显式开启断言，覆盖 try-lock 失败后恢复、信号断开、CSV 引号逗号转义。 另包含 10000 次高低优先级竞争进度回归，CTest 超时 15 秒。"
+    },
+    {
+      "name": "Full SDK build/camera",
+      "status": "not_run",
+      "detail": "没有 SeeSo SDK、OpenCV C++ 包装、授权或摄像头集成环境。"
+    }
+  ],
+  "limitations": [
+    "旧 Git 历史曾包含开发密钥，需要作者在供应商控制台撤销/轮换；本次仅移除当前源码值。",
+    "官方二进制 SDK 不保证自带此工程要求的 CMake wrapper，完整构建仍待本机集成。",
+    "完整程序、SDK 回调线程安全、摄像头/GUI/校准未验证；独立测试不等价于全程序通过。"
+  ],
+  "upstream": "https://github.com/visualcamp/seeso-sample-windows",
+  "date": "2026-10-30",
+  "source_commit": "1c119b905ae69aaa6e51fb417c55bf6d32567281",
+  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/seeso4keyboard/"
+}

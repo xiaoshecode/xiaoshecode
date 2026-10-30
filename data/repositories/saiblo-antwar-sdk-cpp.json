@@ -1,0 +1,44 @@
+{
+  "name": "saiblo-antwar-sdk-cpp",
+  "summary": "ANTWar 智能体比赛的 C++ SDK、模拟器和示例。",
+  "purpose": "ANTWar 智能体比赛的 C++ SDK、模拟器和示例。",
+  "setup": [
+    "准备支持 C++11 的编译器与 Make。"
+  ],
+  "usage": [
+    "make",
+    "make docs"
+  ],
+  "structure": [
+    "include/ — 游戏模型、通信与模拟器头文件",
+    "example/ — control/simulate/template 示例",
+    "Makefile — 编译与文档目标",
+    "Doxyfile — API 文档配置"
+  ],
+  "changes": [
+    "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。",
+    "修复 Makefile 的头文件目录和依赖列表，从根目录改为 include/。"
+  ],
+  "checks": [
+    {
+      "name": "仓库目录与入口盘点",
+      "status": "passed",
+      "detail": "检查 Git 索引中的 16 个路径、README 和项目配置；不等于功能验收。"
+    },
+    {
+      "name": "完整构建与端到端运行",
+      "status": "not_run",
+      "detail": "3 个示例通过 MSVC /Zs /std:c++14 语法检查；未运行 Judger 比赛或模拟完整对局。"
+    },
+    {
+      "name": "MSVC 示例语法检查",
+      "status": "passed",
+      "detail": "cl /Zs /std:c++14 /EHsc /Iinclude 对 3 个 example/*.cpp 检查通过。"
+    }
+  ],
+  "limitations": [
+    "3 个示例通过 MSVC /Zs /std:c++14 语法检查；未运行 Judger 比赛或模拟完整对局。"
+  ],
+  "upstream": "https://github.com/saiblo/saiblo-antwar-sdk-cpp",
+  "review_url": "https://github.com/xiaoshecode/saiblo-antwar-sdk-cpp/pull/1"
+}

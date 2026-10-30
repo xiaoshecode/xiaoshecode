@@ -1,0 +1,49 @@
+{
+  "name": "rust-by-practice",
+  "summary": "Rust 练习、示例和参考解答，包含中英文 mdBook。",
+  "purpose": "Rust 练习、示例和参考解答，包含中英文 mdBook。",
+  "setup": [
+    "安装 Rust 和 mdBook；依具体 book.toml 准备额外预处理器。"
+  ],
+  "usage": [
+    "mdbook serve zh-CN",
+    "mdbook build en"
+  ],
+  "structure": [
+    "zh-CN/ — 中文 mdBook",
+    "en/ — 英文 mdBook",
+    "practices/ — 实践项目",
+    "solutions/ — 参考解答",
+    "scripts/ — 维护脚本"
+  ],
+  "changes": [
+    "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。"
+  ],
+  "checks": [
+    {
+      "name": "仓库目录与入口盘点",
+      "status": "passed",
+      "detail": "检查 Git 索引中的 295 个路径、README 和项目配置；不等于功能验收。"
+    },
+    {
+      "name": "JavaScript syntax",
+      "status": "passed",
+      "detail": "4 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "TOML parse",
+      "status": "passed",
+      "detail": "5 个文件通过最终解析；不导入依赖、不执行应用。"
+    },
+    {
+      "name": "完整构建与端到端运行",
+      "status": "not_run",
+      "detail": "教学练习可能故意无法编译；本机未安装 Rust/mdBook，未执行书籍构建与练习测试。"
+    }
+  ],
+  "limitations": [
+    "教学练习可能故意无法编译；本机未安装 Rust/mdBook，未执行书籍构建与练习测试。"
+  ],
+  "upstream": "https://github.com/origin-brain/rust-by-practice",
+  "review_url": "https://github.com/xiaoshecode/rust-by-practice/pull/1"
+}

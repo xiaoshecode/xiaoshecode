@@ -1,0 +1,59 @@
+{
+  "name": "uartspi",
+  "summary": "UART/SPI Verilog 实验：修复复位端口和接收总线未知值驱动，整理主机工具和双份源文件说明。",
+  "purpose": "FPGA UART 多字节回环与独立 SPI Master，配套 Python 串口检查。",
+  "setup": [
+    "python -m venv .venv",
+    "python -m pip install -r requirements.txt",
+    "Vivado 工程 use/nbytes_uart_final.xpr；根目录与 nbytes_uart_final.srcs 同名 UART 模块只编译一套。"
+  ],
+  "usage": [
+    "python use/main.py --help",
+    "python use/main.py --port COM4 --baudrate 9600 --count 100",
+    "python -m unittest discover -s tests -v"
+  ],
+  "structure": [
+    "根目录 *.v: UART 模块、旧 testbench 与独立 SPI Master",
+    "nbytes_uart_final.srcs/: Vivado 源/仿真/约束/IP 副本",
+    "use/: Vivado 工程入口及主机客户端",
+    "tests/: 无硬件主机回归测试"
+  ],
+  "changes": [
+    "恢复两份 uart 顶层 rst_n_i 输入，移除接收总线持续 x 驱动。",
+    "spi_master.v 从 GB18030 转为 UTF-8，消除解析错误。",
+    "主机程序改为命令行参数，默认波特率与 HDL 的 9600 一致，使用上下文管理关闭串口并拒绝非正次数。",
+    "补充 README、requirements.txt、.editorconfig 和缓存忽略规则。"
+  ],
+  "checks": [
+    {
+      "name": "Python host regression",
+      "status": "passed",
+      "detail": "python -m unittest discover -s tests -v：3/3，通过回环、读失败关闭端口和次数校验。"
+    },
+    {
+      "name": "Root HDL parse/elaboration",
+      "status": "passed",
+      "detail": "pyslang 12.1.0: 7 Verilog files, 0 errors, 45 warnings."
+    },
+    {
+      "name": "Vivado HDL parse/elaboration",
+      "status": "passed",
+      "detail": "pyslang 12.1.0: 6 Verilog files, 0 errors, 20 warnings."
+    },
+    {
+      "name": "Behavioral simulation / hardware",
+      "status": "not_run",
+      "detail": "旧 testbench 无自动断言/结束条件；未运行 Vivado、时序分析或真实 UART/SPI 回环。"
+    }
+  ],
+  "limitations": [
+    "综合前需给恢复的低有效 rst_n_i 端口连接实际复位并配置对应 XDC 引脚，旧约束示例仍为注释。",
+    "剩余带符号比较、隐式调试线网、位宽告警须在参数化测试中继续评估。",
+    "SPI CPOL/CPHA、边界数据宽度、跨字节收发未完成行为仿真。",
+    "仓库无统一 LICENSE。"
+  ],
+  "upstream": null,
+  "date": "2026-10-30",
+  "source_commit": "ac53dd5549762108013da5e95e249caea8891307",
+  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/uartspi/"
+}

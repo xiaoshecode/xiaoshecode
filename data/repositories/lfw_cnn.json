@@ -1,0 +1,57 @@
+{
+  "name": "lfw_cnn",
+  "summary": "修复两个不可用的数据加载器，抽出共用采样模块，补齐 PyTorch Dataset 协议与 7 项回归。",
+  "purpose": "从本地 LFW 图片和两份标签清单构造 PyTorch Dataset 或旧接口批量划分；不含 CNN 模型与训练流程。",
+  "setup": [
+    "python -m venv .venv",
+    "激活环境后按 PyTorch 官方平台选择安装 torch/torchvision。",
+    "python -m pip install -r requirements.txt",
+    "准备图片目录及其父目录的 male_names.txt / female_names.txt；每行是图片相对路径。"
+  ],
+  "usage": [
+    "from lfw_loader import LFW; dataset = LFW('dataset/easy_trainingdata', data_count=500, seed=42)",
+    "通过 torch.utils.data.DataLoader(dataset, batch_size=32) 使用；不同图片尺寸需先传入 Resize transform。",
+    "旧接口：from LFW_pytorch_loader import DataLoader; data = DataLoader('dataset/easy_trainingdata'); data.loadLFW_label(); data.loadLFW_facedata(); data.getTrainData()"
+  ],
+  "structure": [
+    "lfw_data.py：标签读取、去重、平衡采样、路径与数量校验。",
+    "lfw_loader.py：惰性 PyTorch Dataset，__len__/__getitem__ 及自定义 transform。",
+    "LFW_pytorch_loader.py：保留历史方法名的批量加载和65/20/15划分。",
+    "tests/test_loaders.py：合成图片回归。",
+    "requirements.txt、pyproject.toml、.editorconfig：依赖下限和格式规范。"
+  ],
+  "changes": [
+    "删除导入阶段错误的自实例化与文件加载，去掉硬编码个人绝对路径。",
+    "修复 PILToTensor 错误调用、未定义字段及 Dataset 缺失 len/index 接口。",
+    "共享标签采样使用不重复样本、忽略空行、校验数量/文件/越界/冲突标签，可传 seed 复现。",
+    "可变状态改为实例级，重复加载替换旧数据，图像/标签/one-hot 同序，按实际数量划分。",
+    "README 说明数据布局、张量格式、接口、验证边界，新增测试与规范文件。"
+  ],
+  "checks": [
+    {
+      "name": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+      "status": "passed",
+      "detail": "退出0，7测试/0.195秒；真实合成图片，验证CPU张量、批次、transform、标签对应、划分、重复加载、实例隔离、缺失与非法输入。"
+    },
+    {
+      "name": "ruff check .; ruff format --check .",
+      "status": "passed",
+      "detail": "退出0，Ruff 0.17.2。"
+    },
+    {
+      "name": "git diff origin/default HEAD --check",
+      "status": "passed",
+      "detail": "退出0"
+    }
+  ],
+  "limitations": [
+    "测试环境 Windows/Python3.13.12、torch2.15.0+cpu、torchvision0.29.2+cpu、numpy2.5.4、Pillow13.0.0；未跑GPU训练或真实LFW数据。",
+    "首次系统 Conda 环境存在重复 OpenMP 运行库，已改用独立 .venv 验证；沙箱临时目录拒绝访问后在正常权限下复验通过。",
+    "图片级随机划分不保证人物身份隔离或分层；正式研究需正确的身份划分协议。",
+    "标签仅沿用输入分组；仓库未包含数据授权或代码许可证。"
+  ],
+  "upstream": null,
+  "commit": "00b245e364daac483cda6bd280dcc470f3069af3",
+  "branch": "codex/repository-maintenance-20261030",
+  "review_url": "https://github.com/xiaoshecode/lfw_cnn/pull/1"
+}

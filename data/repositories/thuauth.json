@@ -1,0 +1,71 @@
+{
+  "name": "thuauth",
+  "summary": "保留成熟 src 布局与协议实现，复验完整 Windows 测试套件，新增统一在线文档和维护证据。",
+  "purpose": "Windows 清华校园网认证与保活客户端：Python asyncio/aiohttp，双栈状态、按需登录与可配置流量。",
+  "setup": [
+    "uv sync --locked --group dev",
+    "uv run thuauth --help",
+    "uv run thuauth config check -c config.example.json"
+  ],
+  "usage": [
+    "用户在自己的交互终端执行 uv run thuauth init，凭据保存在本机。",
+    "uv run thuauth status --json",
+    "uv run thuauth keep",
+    "真实校园网操作请先阅读 docs/campus-validation.md，本轮未执行。"
+  ],
+  "structure": [
+    "src/thuauth/：CLI、配置、认证、HTTP、守护、流量、限速与日志。",
+    "src/thuauth/protocol/：纯协议编码与响应解析。",
+    "tests/：假服务器、协议向量、并发/取消/配额/ACL回归。",
+    "docs/：架构、运行契约、开发、校园网验收和本轮维护记录。",
+    "references/GoAuthing/：只读固定上游源码，保持原始来源许可。",
+    "pyproject.toml、uv.lock：包元数据和锁定依赖。"
+  ],
+  "changes": [
+    "README 添加在线维护文档及本轮检查记录入口。",
+    "新增 EditorConfig，保持原有43个Python文件的格式。",
+    "更新 HANDOFF 实际复验结果及未验证边界，新增 docs/maintenance-2026-10-30.md。",
+    "未修改运行代码、认证协议、工作流或参考快照。"
+  ],
+  "checks": [
+    {
+      "name": "uv sync --locked --group dev",
+      "status": "passed",
+      "detail": "退出0；24个包按uv.lock安装，Windows/Python3.13.12。"
+    },
+    {
+      "name": ".venv/Scripts/ruff.exe check .",
+      "status": "passed",
+      "detail": "退出0。"
+    },
+    {
+      "name": ".venv/Scripts/ruff.exe format --check .",
+      "status": "passed",
+      "detail": "退出0；43文件。"
+    },
+    {
+      "name": ".venv/Scripts/python.exe -m mypy src/thuauth",
+      "status": "passed",
+      "detail": "退出0；17源文件 strict检查。"
+    },
+    {
+      "name": ".venv/Scripts/python.exe -m pytest -q -ra",
+      "status": "passed",
+      "detail": "退出0；850 passed、1 skipped，26.06秒。仅跳过Windows不适用的POSIX权限测试。"
+    },
+    {
+      "name": "git diff origin/default HEAD --check",
+      "status": "passed",
+      "detail": "退出0"
+    }
+  ],
+  "limitations": [
+    "未读取真实凭据，未进行真实校园网认证/登出或公网bulk下载。",
+    "未重新生成Go向量或构建分发包；旧HANDOFF中的其他版本及CI记录不属于本轮复验。",
+    "未发现本轮需改动运行代码的已证实错误，不等同保证没有其他缺陷。"
+  ],
+  "upstream": null,
+  "commit": "dc881f82360d9939bde2c9b4367910c86e7b1b44",
+  "branch": "codex/repository-maintenance-20261030",
+  "review_url": "https://github.com/xiaoshecode/thuauth/pull/1"
+}

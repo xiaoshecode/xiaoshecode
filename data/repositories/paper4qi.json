@@ -1,0 +1,82 @@
+{
+  "name": "paper4qi",
+  "summary": "保留既有文献站和数据管线，完整复验数据/Worker/静态构建，纠正过时开发说明并补齐维护入口。",
+  "purpose": "QCE/TQE 文献、OpenQASM 专题和量子基础设施研究地图的 Astro 静态站点与只读 Agent 数据服务。",
+  "setup": [
+    "pnpm install --frozen-lockfile",
+    "python scripts/build_data.py",
+    "pnpm dev"
+  ],
+  "usage": [
+    "站点：https://xiaoshecode.github.io/paper4qi/",
+    "本地：http://localhost:4321/paper4qi/",
+    "pnpm build",
+    "python scripts/validate_agent_data.py --site-dir dist"
+  ],
+  "structure": [
+    "data_src/：版本控制的数据与策展输入。",
+    "scripts/：数据构建、验证、周更抓取、Sites辅助工具。",
+    "src/：Astro页面、组件、TypeScript浏览交互、内容、样式。",
+    "public/data/、dist/：忽略的构建产物。",
+    "sites/worker.mjs：静态资源及6个只读MCP工具。",
+    "docs/：来源、Agent访问、维护说明。",
+    ".github/workflows/：现有部署和周更流程，保持不变。"
+  ],
+  "changes": [
+    "README 新增文档中心入口、维护记录，安装示例使用冻结锁文件。",
+    "修正 CLAUDE.md：OpenQASM Markdown 已被页面引用；Astro构建不等同完整TS类型检查。",
+    "Python语法检查改为跨Shell可用的 compileall 命令。",
+    "新增EditorConfig和有实际命令/结果/边界的维护记录。"
+  ],
+  "checks": [
+    {
+      "name": "pnpm install --frozen-lockfile",
+      "status": "passed",
+      "detail": "退出0，pnpm11.24.0，278包。"
+    },
+    {
+      "name": "python scripts/build_data.py",
+      "status": "passed",
+      "detail": "退出0；2511总记录、2338非前置页、9个manifest资源。"
+    },
+    {
+      "name": "python scripts/test_research_data.py",
+      "status": "passed",
+      "detail": "退出0；5个测试。"
+    },
+    {
+      "name": "python scripts/validate_agent_data.py",
+      "status": "passed",
+      "detail": "退出0；2511记录、9资源、schema1.0.0。"
+    },
+    {
+      "name": "node scripts/test-site-worker.mjs",
+      "status": "passed",
+      "detail": "退出0；发现、6工具、子主题/筛选/分页/重定向/非法输入/资源检查通过。"
+    },
+    {
+      "name": "pnpm build",
+      "status": "passed",
+      "detail": "退出0；35个静态页面。"
+    },
+    {
+      "name": "python scripts/validate_agent_data.py --site-dir dist",
+      "status": "passed",
+      "detail": "退出0；33个CS4Q条目、49期刊、27会议。"
+    },
+    {
+      "name": "git diff origin/default HEAD --check",
+      "status": "passed",
+      "detail": "退出0"
+    }
+  ],
+  "limitations": [
+    "未运行周更公网抓取，未逐篇核验文献结论，测试基于仓库现有快照。",
+    "未执行独立完整TypeScript类型检查或浏览器交互与主题视觉验收。",
+    "现有GitHub Pages和Sites部署配置不变。"
+  ],
+  "upstream": null,
+  "commit": "e6ef8785eab4f2f4a13d2155bf64a9d8795f669b",
+  "branch": "codex/repository-maintenance-20261030",
+  "review_url": "https://github.com/xiaoshecode/paper4qi/pull/1"
+}

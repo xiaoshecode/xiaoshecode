@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="xiaoshecode 公开仓库的使用、结构、维护与验证记录。">
+<title>verilog-format · 开源仓库手册</title>
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body><a class="skip" href="#content">跳到正文</a>
+<header><div class="wrap"><a class="brand" href="../../index.html">xiaoshecode <span>/ 开源仓库手册</span></a><a href="https://github.com/xiaoshecode">GitHub ↗</a></div></header>
+<main id="content" class="wrap"><p class="eyebrow">FORK / 上游项目</p>
+<h1>verilog-format</h1><p class="lead">使用 Java 实现的 Verilog 格式化命令行工具。</p>
+<div class="links"><a href="https://github.com/xiaoshecode/verilog-format/tree/codex/repository-maintenance-20261030">本轮源码与 README ↗</a><a href="https://github.com/xiaoshecode/verilog-format/commits">默认分支提交 ↗</a><a href="../../index.html">全部仓库</a></div><p class="notice">本页记录维护分支的改动和验证结果。默认分支是否已更新，请查看 <a href="https://github.com/xiaoshecode/verilog-format/pull/1">Pull Request 的合并状态 ↗</a>。</p><p class="notice">这是 Fork 仓库。保留上游目录、许可与贡献说明；安装和兼容性以上游对应版本为准。<a href="https://github.com/ericsonj/verilog-format">查看上游 ↗</a></p><nav class="toc" aria-label="本页目录"><a href="#setup">准备环境</a><a href="#usage">使用入口</a><a href="#structure">目录结构</a><a href="#checks">检查结果</a></nav>
+<section id="setup"><h2>准备环境</h2><ul><li>准备 Java 和 Maven；以 pom.xml 为编译配置。</li></ul></section>
+<section id="usage"><h2>使用入口</h2><ul><li>mvn clean package</li><li>java -jar target/verilog-format-1.0.1-full.jar --help</li></ul></section>
+<section id="structure"><h2>目录结构与职责</h2><ul><li>src/ — Java 格式化源码</li><li>pom.xml — Maven 构建</li><li>verilog/ — Verilog 示例</li><li>bin/ — 上游预构建压缩包</li></ul></section>
+<section><h2>本次整理</h2><ul><li>新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。</li></ul></section>
+<section id="checks"><h2>检查结果</h2><div class="table-wrap"><table><thead><tr><th>检查项</th><th>状态</th><th>证据 / 范围</th></tr></thead><tbody><tr><td>仓库目录与入口盘点</td><td>passed</td><td>检查 Git 索引中的 66 个路径、README 和项目配置；不等于功能验收。</td></tr><tr><td>XML parse</td><td>passed</td><td>1 个文件通过最终解析；不导入依赖、不执行应用。</td></tr><tr><td>完整构建与端到端运行</td><td>not_run</td><td>本机 PATH 无 Java/Maven；未构建或执行上游二进制。jar 文件名应以 target/ 实际构建产物为准。</td></tr></tbody></table></div></section>
+<section><h2>已知限制与后续工作</h2><ul><li>本机 PATH 无 Java/Maven；未构建或执行上游二进制。构建依赖历史 Maven/Launch4j 配置，需要在匹配工具链复验。</li></ul></section></main>
+<footer class="wrap">检查快照：2026-10-30 · 文档由版本控制中的结构化记录生成。通过某项检查不等于项目不存在其他错误。<br><a href="https://github.com/xiaoshecode/xiaoshecode/tree/codex/repository-maintenance-20261030/data/repositories">查看记录与修订历史</a></footer>
+</body></html>

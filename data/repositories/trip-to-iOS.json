@@ -1,0 +1,36 @@
+{
+  "name": "trip-to-iOS",
+  "summary": "iOS 学习资料、工具和推荐阅读清单。",
+  "purpose": "iOS 学习资料、工具和推荐阅读清单。",
+  "setup": [
+    "直接阅读 Markdown，无需编译 fake_lang/ 的占位源码。"
+  ],
+  "usage": [
+    "阅读 README.md 和 Top-100.md。"
+  ],
+  "structure": [
+    "README.md — 分类教程索引",
+    "Top-100.md — 延伸资源",
+    "fake_lang/ — 语言识别占位文件"
+  ],
+  "changes": [
+    "新增维护文档和在线文档入口，补全用途、目录、使用路径及验证边界。"
+  ],
+  "checks": [
+    {
+      "name": "仓库目录与入口盘点",
+      "status": "passed",
+      "detail": "检查 Git 索引中的 5 个路径、README 和项目配置；不等于功能验收。"
+    },
+    {
+      "name": "完整构建与端到端运行",
+      "status": "not_run",
+      "detail": "不少资料面向旧版 iOS；本次不将历史教程标记为当前最佳实践，未逐个验证外链。"
+    }
+  ],
+  "limitations": [
+    "不少资料面向旧版 iOS；本次不将历史教程标记为当前最佳实践，未逐个验证外链。"
+  ],
+  "upstream": "https://github.com/Aufree/trip-to-iOS",
+  "review_url": "https://github.com/xiaoshecode/trip-to-iOS/pull/1"
+}

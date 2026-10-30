@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="xiaoshecode 公开仓库的使用、结构、维护与验证记录。">
+<title>rtmq · 开源仓库手册</title>
+<link rel="stylesheet" href="../../assets/style.css"></head>
+<body><a class="skip" href="#content">跳到正文</a>
+<header><div class="wrap"><a class="brand" href="../../index.html">xiaoshecode <span>/ 开源仓库手册</span></a><a href="https://github.com/xiaoshecode">GitHub ↗</a></div></header>
+<main id="content" class="wrap"><p class="eyebrow">ORIGINAL / 原创仓库</p>
+<h1>rtmq</h1><p class="lead">用 MkDocs 维护 RTMQ、Seq 和 Device 使用手册；实验控制软件本体不在本仓库。</p>
+<div class="links"><a href="https://github.com/xiaoshecode/rtmq">本轮源码与 README ↗</a><a href="https://github.com/xiaoshecode/rtmq/commits">默认分支提交 ↗</a><a href="../../index.html">全部仓库</a></div><nav class="toc" aria-label="本页目录"><a href="#setup">准备环境</a><a href="#usage">使用入口</a><a href="#structure">目录结构</a><a href="#checks">检查结果</a></nav>
+<section id="setup"><h2>准备环境</h2><ul><li>Python 3.10+；创建并激活虚拟环境。</li><li>python -m pip install -r requirements-docs.txt</li></ul></section>
+<section id="usage"><h2>使用入口</h2><ul><li>python -m mkdocs serve：本地预览。</li><li>python -m mkdocs build --strict：构建并检查文档。</li><li>使用手册：https://xiaoshecode.github.io/rtmq/</li></ul></section>
+<section id="structure"><h2>目录结构与职责</h2><ul><li>docs/：Markdown 文档源文件；Seq* 与 Device* 按设备分别组织。</li><li>docs/figure/：插图。</li><li>mkdocs.yml：导航、主题、搜索与日期插件。</li><li>requirements-docs.txt：文档环境约束。</li><li>.github/workflows/ci.yml：部署到 gh-pages。</li><li>site/：生成产物，现已从源码索引移除并忽略。</li></ul></section>
+<section><h2>本次整理</h2><ul><li>重写 README，补充安装、目录职责、维护与发布说明。</li><li>修复编辑链接指向不存在的 master 分支，改为 main。</li><li>显式启用 search 插件，恢复因自定义插件列表而丢失的搜索功能。</li><li>补全 GitLab 构建所需的日期插件依赖，并启用严格构建。</li><li>清理源码分支中陈旧的 site/ 生成产物，补充 .gitignore 和 .editorconfig。</li></ul></section>
+<section id="checks"><h2>检查结果</h2><div class="table-wrap"><table><thead><tr><th>检查项</th><th>状态</th><th>证据 / 范围</th></tr></thead><tbody><tr><td>MkDocs 严格构建</td><td>通过</td><td>Python 3.13.12 / MkDocs 1.6.1 / Material 9.8.0；python -m mkdocs build --strict --site-dir &lt;独立检查目录&gt; 成功。</td></tr><tr><td>实验设备运行</td><td>未执行</td><td>本次只检查文档构建，没有连接实验设备。</td></tr></tbody></table></div></section>
+<section><h2>已知限制与后续工作</h2><ul><li>文档中的外部软件共享资源与设备行为未实机验证。</li><li>现有 GitHub 工作流仍独立安装依赖；requirements-docs.txt 供本地和 GitLab 使用。</li></ul></section></main>
+<footer class="wrap">检查快照：2026-10-30 · 文档由版本控制中的结构化记录生成。通过某项检查不等于项目不存在其他错误。<br><a href="https://github.com/xiaoshecode/xiaoshecode/tree/codex/repository-maintenance-20261030/data/repositories">查看记录与修订历史</a></footer>
+</body></html>

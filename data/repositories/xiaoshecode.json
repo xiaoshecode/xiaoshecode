@@ -1,0 +1,40 @@
+{
+  "name": "xiaoshecode",
+  "summary": "GitHub 个人资料与 30 个公开项目的在线文档中心。",
+  "purpose": "保留个人资料展示，并集中维护每个公开仓库的使用说明、目录结构、检查证据和后续工作。",
+  "setup": [
+    "Python 3.10+；只使用标准库，无额外依赖。"
+  ],
+  "usage": [
+    "python scripts/build_docs.py：生成所有项目页面。",
+    "python scripts/check_docs.py：检查记录完整性与站内链接。",
+    "python -m http.server 8000 --directory docs：预览。",
+    "GitHub Pages 当前从维护分支 codex/repository-maintenance-20261030 的 /docs 发布。"
+  ],
+  "structure": [
+    "README.md：GitHub 个人资料与文档入口。",
+    "data/repositories/：逐仓库结构化记录。",
+    "scripts/build_docs.py：静态页面生成器。",
+    "scripts/check_docs.py：站内校验。",
+    "docs/assets/：样式和搜索脚本。",
+    "docs/repos/<name>/index.html：独立项目文档。"
+  ],
+  "changes": [
+    "保留个人简介，增加公开仓库文档中心。",
+    "提供每仓库独立页面、搜索与原创 / Fork 筛选。",
+    "将文档数据、生成脚本和生成产物分层维护。",
+    "新增 EditorConfig 和 Python 缓存忽略规则。"
+  ],
+  "checks": [
+    {
+      "name": "文档生成与链接校验",
+      "status": "通过",
+      "detail": "python scripts/build_docs.py 和 python scripts/check_docs.py：30 条记录、31 个 HTML 页面，所有相对链接存在；node --check docs/assets/search.js 通过。"
+    }
+  ],
+  "limitations": [
+    "这是 2026-10-30 的检查快照，新增仓库或代码变更后需更新记录并重新构建。",
+    "每个项目的验证范围与未验证内容请参见对应页面。"
+  ],
+  "upstream": null
+}
