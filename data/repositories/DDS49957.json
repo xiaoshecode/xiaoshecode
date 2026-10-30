@@ -46,5 +46,8 @@
   "upstream": null,
   "date": "2026-10-30",
   "source_commit": "ce2f82f490158b0d5ec80bc8f016b70fc5a52c74",
-  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/DDS49957/"
+  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/DDS49957/",
+  "maintenance_branch": "codex/repository-maintenance-20261030",
+  "maintenance_commit": "690ccc02d64f231282b2d6f1181ea96a8e6430ce",
+  "review_url": "https://github.com/xiaoshecode/DDS49957/pull/1"
 }

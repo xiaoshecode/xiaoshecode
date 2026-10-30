@@ -57,5 +57,8 @@
   "upstream": "https://github.com/visualcamp/seeso-sample-windows",
   "date": "2026-10-30",
   "source_commit": "1c119b905ae69aaa6e51fb417c55bf6d32567281",
-  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/seeso4keyboard/"
+  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/seeso4keyboard/",
+  "maintenance_branch": "codex/repository-maintenance-20261030",
+  "maintenance_commit": "6f6263bc45dcd761d0b39709410e0c23545ff87d",
+  "review_url": "https://github.com/xiaoshecode/seeso4keyboard/pull/1"
 }

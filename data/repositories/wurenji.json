@@ -63,5 +63,8 @@
   "upstream": null,
   "date": "2026-10-30",
   "source_commit": "c08560ad98a905636e6fb7a4636bcaad06b87d32",
-  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/wurenji/"
+  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/wurenji/",
+  "maintenance_branch": "codex/repository-maintenance-20261030",
+  "maintenance_commit": "7aa751862d3b0c11bf2c570382d7143584f48a28",
+  "review_url": "https://github.com/xiaoshecode/wurenji/pull/1"
 }

@@ -86,11 +86,21 @@ def build() -> None:
         for r in records
     )
     body = f'''<p class="eyebrow">REPOSITORY HANDBOOK / 2026.10</p><h1>让每个项目<br>都有清晰的入口。</h1><p class="lead">查找仓库用途、环境准备、代码结构与检查记录。原创项目和上游 Fork 分别维护，已有项目网站保留原入口。</p>
+<div class="links"><a href="reviews.html">查看全部修改与 Pull Request →</a></div>
 <div class="stats"><div><strong>{len(records)}</strong><span>公开仓库</span></div><div><strong>{originals}</strong><span>原创项目</span></div><div><strong>{len(records)-originals}</strong><span>上游 Fork</span></div></div>
 <div class="filters"><label for="search">查找仓库<input id="search" type="search" placeholder="名称或用途，例如 quantum" autocomplete="off"></label><label for="kind">项目类型<select id="kind"><option value="all">全部仓库</option><option value="original">原创项目</option><option value="fork">上游 Fork</option></select></label></div><p id="count" aria-live="polite">显示 {len(records)} 个仓库</p>
 <div class="grid">{cards}</div><p class="notice">验证分为实际运行的测试、构建、静态检查和未执行项。GPU、FPGA、商业 SDK、实验设备与历史依赖的限制在各项目页面单独说明。</p>
 <script src="assets/search.js" defer></script>'''
     (OUTPUT / "index.html").write_text(page("项目索引", body), encoding="utf-8")
+    rows = []
+    for record in records:
+        name = record["name"]
+        review = record.get("review_url")
+        destination = review or f"https://github.com/xiaoshecode/{quote(name, safe='')}/commits"
+        label = "Pull Request" if review else "默认分支提交"
+        rows.append(f'<tr><td><a href="repos/{quote(name, safe="")}/index.html">{escape(name)}</a></td><td>{escape(record["summary"])}</td><td><a href="{escape(destination)}">{label} ↗</a></td></tr>')
+    review_body = '<p class="eyebrow">CHANGE REVIEW</p><h1>逐仓库修改入口</h1><p class="lead">查看具体差异、验证结果与合并状态。29 个仓库通过维护分支和 Pull Request 提交；RTMQ 已更新默认分支。GitHub 页面显示实时合并状态。</p><p><a href="index.html">返回项目索引</a></p><div class="table-wrap"><table><thead><tr><th>仓库</th><th>整理内容</th><th>修改入口</th></tr></thead><tbody>' + ''.join(rows) + '</tbody></table></div>'
+    (OUTPUT / "reviews.html").write_text(page("修改与审阅", review_body), encoding="utf-8")
     (OUTPUT / ".nojekyll").write_text("", encoding="utf-8")
     print(f"Built {len(records)} repository pages and index in {OUTPUT}")
 

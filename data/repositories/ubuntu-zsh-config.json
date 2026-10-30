@@ -28,6 +28,11 @@
       "name": "完整构建与端到端运行",
       "status": "not_run",
       "detail": "未执行安装脚本或修改本机 shell、系统包与用户配置；Ubuntu 实机安装尚待验证。"
+    },
+    {
+      "name": "Bash 语法检查",
+      "status": "passed",
+      "detail": "分别对 setup_ubuntu.sh、install_oh_my_zsh.sh、config_oh_my_zsh.sh、install_conda.sh 执行 bash -n，全部通过；不执行安装。"
     }
   ],
   "limitations": [

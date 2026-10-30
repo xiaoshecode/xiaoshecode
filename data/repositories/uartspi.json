@@ -55,5 +55,8 @@
   "upstream": null,
   "date": "2026-10-30",
   "source_commit": "ac53dd5549762108013da5e95e249caea8891307",
-  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/uartspi/"
+  "documentation_url": "https://xiaoshecode.github.io/xiaoshecode/repos/uartspi/",
+  "maintenance_branch": "codex/repository-maintenance-20261030",
+  "maintenance_commit": "57156401ba18084b7182fb09d089088656925721",
+  "review_url": "https://github.com/xiaoshecode/uartspi/pull/1"
 }
